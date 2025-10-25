@@ -469,7 +469,7 @@ class AddressModalManager {
             }
 
             // Use the backend server URL for API requests
-            const apiBaseUrl = 'https://sdaw.onrender.com'; // Change this if your backend runs elsewhere
+            const apiBaseUrl = 'http://localhost:3000'; // Change this if your backend runs elsewhere
             console.log('DEBUG: Sending fetch to ' + apiBaseUrl + '/api/user-addresses');
             const response = await fetch(apiBaseUrl + '/api/user-addresses', {
                 method: 'POST',

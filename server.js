@@ -16,26 +16,13 @@ app.use(securityMiddleware.setSecurityHeaders);
 app.use(securityMiddleware.rateLimit);
 app.use(securityMiddleware.sanitizeInput);
 
-// CORS configuration - More permissive for cross-origin requests
-app.use(cors({
-    origin: ['https://sdaw.onrender.com', 'http://localhost:3000', 'http://127.0.0.1:3000', '*'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept']
-}));
+// CORS configuration
+app.use(cors(securityConfig.cors));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.static('.')); // Serve static files from current directory
-
-// Handle preflight OPTIONS requests
-app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Origin, Accept');
-    res.sendStatus(200);
-});
 
 // Request logging middleware
 app.use((req, res, next) => {
@@ -48,15 +35,15 @@ async function connectToDatabase() {
         if (!client.topology || !client.topology.isConnected()) {
             await client.connect();
         }
-        return client.db(process.env.DATABASE_NAME || "MyProductsDb");
+        return client.db("MyProductsDb");
     } catch (error) {
         console.error("❌ Database connection error:", error);
         throw error;
     }
 }
 
-// MongoDB connection string from environment variables
-const uri = process.env.MONGODB_URI || "mongodb+srv://24uglyandrew:weaklings162@sanricosite.vgnc0qj.mongodb.net/";
+// MongoDB connection string
+const uri = "mongodb+srv://24uglyandrew:weaklings162@sanricosite.vgnc0qj.mongodb.net/";
 const client = new MongoClient(uri);
 
 // Connect to MongoDB
@@ -68,7 +55,7 @@ async function connectToMongo() {
         await client.db("admin").command({ ping: 1 });
         
         // Test access to our database
-        const database = client.db(process.env.DATABASE_NAME || "MyProductsDb");
+        const database = client.db("MyProductsDb");
         
         // Test all three order collections
         const pendingCollection = database.collection("PendingOrders");

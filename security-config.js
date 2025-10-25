@@ -45,7 +45,7 @@ const securityConfig = {
     
     // CORS configuration
     cors: {
-        origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://127.0.0.1:3000', 'http://localhost:3000', 'https://sdaw.onrender.com', '*'], // Allow specific origins
+        origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://127.0.0.1:3000', 'http://localhost:3000'], // Allow specific origins
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -66,7 +66,7 @@ const securityConfig = {
         'X-XSS-Protection': '1; mode=block',
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Content-Security-Policy': "default-src 'self' https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https:;"
+        'Content-Security-Policy': "default-src 'self' https://sdaw.onrender.com; script-src 'self' 'unsafe-inline' https://sdaw.onrender.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://sdaw.onrender.com;"
     },
     
     // Database security
