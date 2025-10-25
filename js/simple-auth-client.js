@@ -1,7 +1,7 @@
 // 🎯 Simple Authentication Client - Works with existing MongoDB setup
 class SimpleAuthClient {
     constructor() {
-        this.baseURL = 'http://localhost:3001';
+        this.baseURL = 'https://sdaw.onrender.com';
         this.currentUser = null;
         this.token = localStorage.getItem('auth_token');
         this.init();

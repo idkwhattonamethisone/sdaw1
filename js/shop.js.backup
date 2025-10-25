@@ -43,7 +43,7 @@ async function loadProducts() {
     
     try {
         console.log('📡 Fetching products from API...');
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch('https://sdaw.onrender.com/api/products');
         console.log('📊 Response status:', response.status);
         if (!response.ok) {
             throw new Error('Failed to fetch products');
